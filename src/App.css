@@ -276,6 +276,37 @@ body {
   color: #fff;
 }
 
+
+/*  */
+.form-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-wrapper-name{
+  display: flex;
+  gap: 20px;
+  
+}
+
+.btn-btn{
+  display: flex;
+  gap: 20px;
+  
+ 
+}
+.btn-save{
+  padding: 8px;
+  width: 100px;
+}
+
+.bg-bleu{
+  background-color: rgb(192, 225, 245);
+}
+/*  */
+
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
