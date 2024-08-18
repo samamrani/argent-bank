@@ -27,7 +27,7 @@ const logout = () => {
 // Fonction pour récupérer le profil utilisateur
 const fetchUserProfile = async (userToken) => {
   try {
-    // Envoi d'une requête POST pour récupérer les données du profil avec le token utilisateur dans l'en-tête
+    //Envoirequête POST pour récupérer les données du profil avec le token utilisateur dans l'en-tête
     const response = await axios.post(`${API_URL}user/profile`, null, {
       headers: {
         Authorization: `Bearer ${userToken}`, 
@@ -43,7 +43,7 @@ const fetchUserProfile = async (userToken) => {
 // Fonction pour mettre à jour le profil utilisateur
 const updateUserProfile = async (userToken, firstName, lastName) => {
   try {
-    // Envoi d'une requête PUT pour mettre à jour les données du profil avec le token utilisateur dans l'en-tête
+    // requête PUT pour mettre à jour les données du profil avec le token utilisateur dans l'en-tête
     const response = await axios.put(
       `${API_URL}user/profile`,
       { firstName, lastName }, 
