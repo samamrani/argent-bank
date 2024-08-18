@@ -1,10 +1,14 @@
-import React from "react";
-
+import React from 'react';
+import UserProfile from "../components/ProfileForm";
 import ProfilePage from "../components/ProfilePage";
 
 function Profile(){
     return(
-        <ProfilePage/>
+        <main className="bg-dark">
+            <UserProfile/>
+            <ProfilePage/>
+         
+        </main>
     )
 }
 

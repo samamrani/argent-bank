@@ -1,42 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  user: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    token: '',
-  },
-  userStatus: false, 
-  status: 'initial', 
-  error: null,
-};
-
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    token: null,
+    profile: null,
+    status: 'idle',
+    error: null,
+    success: null,
+  },
   reducers: {
-    userExecute(state) {
-      state.status = 'loading';
-      state.error = null;
-    },
-    userSuccess(state, action) {
+    loginSuccess: (state, action) => {
+      console.log('loginSuccess payload:', action.payload);
+      const { token, profile } = action.payload.body; 
+      state.token = token;
+      state.profile = profile;
+      console.log('Updated profile state:', state.profile);
       state.status = 'succeeded';
-      state.user = action.payload;
-      state.userStatus = true;
+      state.error = null;
+      state.success = 'Login successful';
     },
-    userError(state, action) {
-      state.status = 'error';
+    loginFailure: (state, action) => {
+      state.status = 'failed';
       state.error = action.payload;
-      state.userStatus = false;
+      state.success = null;
     },
-    logoutUser(state) {
-      state.user = initialState.user;
-      state.userStatus = false;
-      state.status = 'initial';
+    setProfile: (state, action) => {
+      state.profile = action.payload;
+    },
+    updateProfileSuccess: (state, action) => {
+      state.profile = action.payload;
+      state.success = 'Profile updated successfully';
+    },
+    logout: (state) => {
+      state.token = null;
+      state.profile = null;
+      state.status = 'idle';
+      state.error = null;
+      state.success = null;
     },
   },
 });
 
-export const { userExecute, userSuccess, userError, logoutUser } = userSlice.actions;
+export const { loginSuccess, loginFailure, setProfile, updateProfileSuccess, logout } = userSlice.actions;
+
 export default userSlice.reducer;
