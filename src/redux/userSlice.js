@@ -5,28 +5,27 @@ const userSlice = createSlice({
   initialState: {
     token: null,
     profile: null,
-    status: 'idle',
     error: null,
     success: null,
+    statue: 'idle',  // 'idle', 'loading', 'succeeded', 'failed'
   },
   reducers: {
     loginSuccess: (state, action) => {
-      console.log('loginSuccess payload:', action.payload);
       const { token, profile } = action.payload.body; 
       state.token = token;
       state.profile = profile;
-      console.log('Updated profile state:', state.profile);
-      state.status = 'succeeded';
-      state.error = null;
       state.success = 'Login successful';
+      state.error = null;
+      state.statue = 'succeeded';
     },
     loginFailure: (state, action) => {
-      state.status = 'failed';
+      state.statue = 'failed';
       state.error = action.payload;
       state.success = null;
     },
     setProfile: (state, action) => {
       state.profile = action.payload;
+      state.statue = 'succeeded';
     },
     updateProfileSuccess: (state, action) => {
       state.profile = action.payload;
@@ -35,7 +34,7 @@ const userSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.profile = null;
-      state.status = 'idle';
+      state.statue = 'idle';
       state.error = null;
       state.success = null;
     },

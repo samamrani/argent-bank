@@ -9,8 +9,6 @@ function Header() {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.user);
 
-  console.log('Current profile state:', profile);
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");

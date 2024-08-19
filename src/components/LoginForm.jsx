@@ -12,12 +12,12 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   
-  const { error, success } = useSelector((state) => state.user);
+  const { error, success, statue } = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await AuthService.login(email, password);
+      const response = await AuthService.login(email, password, rememberMe);
       console.log('API Response:', response);
       dispatch(loginSuccess(response));
       
@@ -66,6 +66,7 @@ const LoginForm = () => {
           </div>
           <button type="submit" className="sign-in-button">Sign In</button>
         </form>
+        {statue === 'loading' && <p>Loading...</p>}
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
       </section>

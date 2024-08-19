@@ -3,16 +3,25 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3001/api/v1/';
 
 // Fonction pour se connecter
-const login = async (email, password) => {
+const login = async (email, password, rememberMe) => {
   try {
     const response = await axios.post(`${API_URL}user/login`, { email, password });
-    
-    // Stockage du token utilisateur dans le localStorage pour une utilisation ultérieure
-    localStorage.setItem('userToken', response.data.token);
+    const token = response.data.body.token;
 
+    if (!token || typeof token !== 'string') {
+      throw new Error('Invalid token received');
+    }
+
+    // Stockage du token
+    if (rememberMe) {
+      localStorage.setItem('userToken', token);
+    } else {
+      sessionStorage.setItem('userToken', token);
+    }
+    
     return response.data;
   } catch (error) {
-    console.error('Error during login:', error);
+    console.error('Error during login:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -35,7 +44,7 @@ const fetchUserProfile = async (userToken) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error during fetchUserProfile:', error);
+    console.error('Error during fetchUserProfile:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -43,6 +52,12 @@ const fetchUserProfile = async (userToken) => {
 // Fonction pour mettre à jour le profil utilisateur
 const updateUserProfile = async (userToken, firstName, lastName) => {
   try {
+
+    console.log('Updating profile with:', { firstName, lastName });
+    if (typeof firstName !== 'string' || typeof lastName !== 'string') {
+      throw new Error('firstName and lastName must be strings');
+    }
+
     // requête PUT pour mettre à jour les données du profil avec le token utilisateur dans l'en-tête
     const response = await axios.put(
       `${API_URL}user/profile`,
@@ -57,7 +72,7 @@ const updateUserProfile = async (userToken, firstName, lastName) => {
   
     return response.data;
   } catch (error) {
-    console.error('Error during updateUserProfile:', error);
+    console.error('Error during updateUserProfile:', error.response?.data || error.message);
     throw error; 
   }
 };
