@@ -1,7 +1,7 @@
 
 
 
-function HomePage() {
+function Heros() {
 
  
 
@@ -22,4 +22,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Heros;
