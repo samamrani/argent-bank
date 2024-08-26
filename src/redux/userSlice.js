@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Le slice Redux pour gérer l'état de l'utilisateur.
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -7,40 +8,60 @@ const userSlice = createSlice({
     profile: null,
     error: null,
     success: null,
-    statue: 'idle',  // 'idle', 'loading', 'succeeded', 'failed'
+    status: 'idle',  // 'idle', 'loading', 'succeeded', 'failed'
   },
   reducers: {
-    loginSuccess: (state, action) => {
-      const { token, profile } = action.payload.body; 
-      state.token = token;
-      state.profile = profile;
-      state.success = 'Login successful';
+    loginLoading: (state)=> {
+      state.status = 'loading';
       state.error = null;
-      state.statue = 'succeeded';
+      state.success = null;
     },
+
+    // Action pour gérer la réussite de la connexion.
+    loginSuccess: (state, {payload: {token,profile}}) => {
+      state.profile = profile;
+      state.token = token;
+      state.success = 'Login successfully';
+      state.error = null;
+      state.status = 'succeeded';
+    },
+
+    // Action pour gérer l'échec de la connexion.
     loginFailure: (state, action) => {
-      state.statue = 'failed';
+      state.status = 'failed';
       state.error = action.payload;
       state.success = null;
     },
-    setProfile: (state, action) => {
-      state.profile = action.payload;
-      state.statue = 'succeeded';
+
+    updateProfileLoading: (state)=> {
+      state.status = 'loading';
+      state.error = null;
+      state.success = null;
     },
+
+    // Action pour gérer la réussite de la mise à jour du profil.
     updateProfileSuccess: (state, action) => {
       state.profile = action.payload;
       state.success = 'Profile updated successfully';
     },
+
+    updateProfileFailure: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+      state.success = null;
+    },
+
+    // Action pour déconnecter l'utilisateur et réinitialiser l'état.
     logout: (state) => {
       state.token = null;
       state.profile = null;
-      state.statue = 'idle';
+      state.status = 'idle';
       state.error = null;
       state.success = null;
     },
   },
 });
 
-export const { loginSuccess, loginFailure, setProfile, updateProfileSuccess, logout } = userSlice.actions;
+export const { loginLoading, loginSuccess, loginFailure,updateProfileLoading, updateProfileSuccess,updateProfileFailure, logout } = userSlice.actions;
 
 export default userSlice.reducer;
