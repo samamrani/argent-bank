@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess, loginFailure, setProfile } from '../redux/userSlice'; 
-import AuthService from '../services/userService';
+import { loginSuccess, loginFailure, loginLoading } from '../redux/userSlice'; 
+import {fetchUserProfile} from '../services/fetchUserProfileService';
+import {login} from '../services/loginService';
 import { useNavigate } from 'react-router-dom';
+
 
 const LoginForm = () => {
   
@@ -12,24 +14,27 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   
-  const { error, success, statue } = useSelector((state) => state.user);
+  const { error, success, status } = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    dispatch(loginLoading());
     try {
-      const response = await AuthService.login(email, password, rememberMe);
+      const response = await login(email, password);
       console.log('API Response:', response);
-      dispatch(loginSuccess(response));
       
-      // Si le profil n'est pas dans la réponse de connexion, appel API séparé pour le récupérer
-      const userProfile = await AuthService.fetchUserProfile(response.body.token);
-      dispatch(setProfile(userProfile.body));
+      // Appel pour récupérer le profil utilisateur
+      const userProfile = await fetchUserProfile(response.body.token);
       
+      dispatch(loginSuccess({token:response.body.token, profile: userProfile.body}));
       navigate('/profile');
     } catch (error) {
+      console.error('Login Error:', error.message);
       dispatch(loginFailure('Login failed'));
     }
   };
+  
 
   return (
     <main className="bg-dark">
@@ -66,7 +71,7 @@ const LoginForm = () => {
           </div>
           <button type="submit" className="sign-in-button">Sign In</button>
         </form>
-        {statue === 'loading' && <p>Loading...</p>}
+        {status === 'loading' && <p>Loading...</p>}
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
       </section>
