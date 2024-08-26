@@ -11,6 +11,7 @@ const userSlice = createSlice({
     status: 'idle',  // 'idle', 'loading', 'succeeded', 'failed'
   },
   reducers: {
+      // Action pour indiquer que le processus de connexion est en cours.
     loginLoading: (state)=> {
       state.status = 'loading';
       state.error = null;
@@ -33,6 +34,7 @@ const userSlice = createSlice({
       state.success = null;
     },
 
+    // Action pour indiquer que le processus de mise à jour du profil est en cours.
     updateProfileLoading: (state)=> {
       state.status = 'loading';
       state.error = null;
@@ -45,6 +47,7 @@ const userSlice = createSlice({
       state.success = 'Profile updated successfully';
     },
 
+    // Action pour gérer l'échec de la mise à jour du profil.
     updateProfileFailure: (state, action) => {
       state.status = 'failed';
       state.error = action.payload;

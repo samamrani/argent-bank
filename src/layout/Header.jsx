@@ -4,6 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice';
 import logo from '../assets/img/argentBankLogo.png';
 
+/**
+ * Composant de l'en-tête de l'application.
+ * Affiche le logo, les liens de navigation et les informations de l'utilisateur connecté.
+ * 
+ * @component
+ */
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

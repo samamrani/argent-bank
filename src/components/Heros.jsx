@@ -1,9 +1,4 @@
-
-
-
 function Heros() {
-
- 
 
   return (
     <>

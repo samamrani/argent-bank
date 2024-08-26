@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginForm from '../components/LoginForm';
 import { useSelector } from 'react-redux';
-import {Navigate} from "react-router-dom";
-
+import {useNavigate} from "react-router-dom";
 
 function Login() {
     const { token } = useSelector((state) => state.user);
-    if (token) {
-        return <Navigate to="/" />;
-    }
+    const navigate = useNavigate();
 
-    return (     
-        <LoginForm />
-    );
+    useEffect(()=>{
+        // Si le token est présent, rediriger vers la page d'accueil
+        if (token) {
+            navigate('/');
+        }
+        
+    },[])
+    return <LoginForm />;
 }
 
 export default Login;

@@ -1,22 +1,16 @@
 import React from 'react';
 import UserProfile from "../components/ProfileForm";
-import ProfilePage from "../components/ProfilePage";
-import { useSelector } from 'react-redux';
-import {Navigate} from "react-router-dom";
+import Accounts from '../components/Accounts';
 
-
-function Profile(){
-    const {token} = useSelector((state) => state.user);
-    if(!token){
-        return <Navigate to="/"/>
-    }
-    return(
+function Profile() {
+   
+    // Si l'utilisateur est authentifié, affichez la page de profil
+    return (
         <main className="bg-dark">
-            <UserProfile/>
-            <ProfilePage/>
-         
+            <UserProfile />
+            <Accounts />
         </main>
-    )
+    );
 }
 
 export default Profile;

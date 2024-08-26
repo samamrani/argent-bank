@@ -12,7 +12,7 @@ import featureData from "../data/featureData";
 function Features(){
     return(
        
-         <section className="features">
+      <section className="features">
         <h2 className="sr-only">Features</h2>
 
         {featureData.map((feature) => (
