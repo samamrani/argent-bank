@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, loginFailure, loginLoading } from '../redux/userSlice'; 
 import {fetchUserProfile} from '../services/fetchUserProfileService';
-import {login} from '../services/loginService';
+import {fetchUserLogin} from '../services/loginService';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -21,7 +21,7 @@ const LoginForm = () => {
   
     dispatch(loginLoading());
     try {
-      const response = await login(email, password);
+      const response = await fetchUserLogin(email, password);
       console.log('API Response:', response);
       
       // Appel pour récupérer le profil utilisateur

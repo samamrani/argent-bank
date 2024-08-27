@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:3001/api/v1/';
 
   // Connecte un utilisateur avec ses identifiants et gère le stockage du token.
 
-export const login = async (email, password) => {
+export const fetchUserLogin = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}user/login`, { email, password });
     const token = response.data.body.token;
