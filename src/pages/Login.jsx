@@ -8,13 +8,18 @@ function Login() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        // Si le token est présent, rediriger vers la page d'accueil
+       
         if (token) {
             navigate('/');
         }
         
-    },[])
-    return <LoginForm />;
+    }, []); // eslint-disable-line
+
+    return (
+    
+            <LoginForm />
+            
+    );
 }
 
 export default Login;

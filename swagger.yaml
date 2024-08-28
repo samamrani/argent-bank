@@ -1,0 +1,217 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: 1.0.0
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for logging in a user and obtaining a JWT token.
+      parameters:
+        - in: body
+          name: body
+          description: Login credentials
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login successful and token returned
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid login credentials
+        '500':
+          description: Internal server error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for signing up a new user.
+      parameters:
+        - in: body
+          name: body
+          description: User registration details
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup successful
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid input data
+        '500':
+          description: Internal server error
+  /user/profile:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Get User Profile
+      description: Retrieve user profile information.
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT token for authentication
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Update User Profile
+      description: Update user profile information.
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT token for authentication
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated user profile details
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+  /transactions:
+    get:
+      tags:
+        - Transaction Module
+      summary: Get Transactions
+      description: Retrieve all transactions for a specified account.
+      parameters:
+        - in: query
+          name: accountId
+          type: string
+          description: ID of the account to retrieve transactions for
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '404':
+          description: No transactions found
+        '500':
+          description: Internal server error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+      firstName:
+        type: string
+        description: User first name
+      lastName:
+        type: string
+        description: User last name
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        description: Response status code
+      message:
+        type: string
+        description: Response message
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+            description: User ID
+          email:
+            type: string
+            description: User email
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+        description: JWT token for authenticated sessions
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Unique identifier for the transaction
+      amount:
+        type: number
+        format: float
+        description: Amount of the transaction
+      date:
+        type: string
+        format: date-time
+        description: Date and time of the transaction
+      accountId:
+        type: string
+        description: Account ID related to the transaction

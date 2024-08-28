@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserProfile } from '../services/updateUserProfileService';
+import { updateUserProfile } from '../services/updateUserProfile';
 import { updateProfileFailure, updateProfileLoading, updateProfileSuccess } from '../redux/userSlice'; 
 
 /**
@@ -55,8 +55,10 @@ function ProfileForm() {
     }
   };
 
+  console.log('Rendering ProfileForm with:', { newFirstName, newLastName });
+  
   return (
-    <main className="bg-dark">
+    <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back</h1> 
         {!isEditing ? (

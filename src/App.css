@@ -13,13 +13,14 @@ body {
   min-height: 100vh;
 }
 
+
 .main {
   flex: 1;
 }
 
 .bg-dark {
   background-color: #12002b;
-  padding: 1rem;
+  /* padding: 6rem; */
 }
 
 .sr-only {
@@ -51,8 +52,18 @@ body {
 .main-nav a.router-link-exact-active {
   color: #42b983;
 }
+/*  */
+button{
+border: none;
+background: white;
 
-.main-nav-item {
+}
+.out{
+
+}
+
+.main-nav-item{
+  font-weight: bold;
   text-decoration: none;
   margin-right: 0.5rem;
 }
@@ -171,7 +182,7 @@ body {
   background-color: white;
   width: 300px;
   margin: 0 auto;
-  margin-top: 3rem;
+margin-top: 3rem;
   padding: 2rem;
 }
 

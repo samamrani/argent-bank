@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, loginFailure, loginLoading } from '../redux/userSlice'; 
-import {fetchUserProfile} from '../services/fetchUserProfileService';
-import {fetchUserLogin} from '../services/loginService';
+import {fetchUserProfile} from '../services/fetchUserProfile';
+import {fetchUserLogin} from '../services/fetchUserLogin';
 import { useNavigate } from 'react-router-dom';
 
-
+/**
+ * Le composant LoginForm gère la fonctionnalité de connexion des utilisateurs.
+ * 
+ * Ce composant affiche un formulaire de connexion où les utilisateurs 
+ * peuvent saisir leur email et leur mot de passe.
+ * Il gère l'état du formulaire et traite la soumission pour authentifier l'utilisateur.
+ * En cas de succès, il récupère le profil de l'utilisateur,
+ *  met à jour l'état dans Redux, et navigue vers la page du profil.
+ * **/
 const LoginForm = () => {
   
   const [email, setEmail] = useState('');
@@ -37,13 +45,13 @@ const LoginForm = () => {
   
 
   return (
-    <main className="bg-dark">
+    <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Username</label>
             <input
               type="email"
               id="email"
