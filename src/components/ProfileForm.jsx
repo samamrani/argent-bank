@@ -58,7 +58,7 @@ function ProfileForm() {
   console.log('Rendering ProfileForm with:', { newFirstName, newLastName });
   
   return (
-    <main className="main bg-dark">
+ 
       <div className="header">
         <h1>Welcome back</h1> 
         {!isEditing ? (
@@ -97,7 +97,7 @@ function ProfileForm() {
           </form>
         )}
       </div>
-    </main>
+   
   );
 }
 

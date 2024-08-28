@@ -15,10 +15,10 @@ function Login() {
         
     }, []); // eslint-disable-line
 
-    return (
-    
-            <LoginForm />
-            
+    return (  
+    <main className="main bg-dark">
+       <LoginForm />
+    </main>
     );
 }
 

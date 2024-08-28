@@ -4,10 +4,10 @@ import Features from '../components/Features.jsx';
 
   function Home(){
     return(
-      <main>
+      <>
         <Heros/>
         <Features/>
-      </main>
+      </>
     )
   }
 

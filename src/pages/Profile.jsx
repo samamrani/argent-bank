@@ -6,7 +6,7 @@ function Profile() {
    
     // Si l'utilisateur est authentifié, affichez la page de profil
     return (
-        <main className="bg-dark">
+        <main className="main bg-dark">
             <UserProfile />
             <Accounts />
         </main>
