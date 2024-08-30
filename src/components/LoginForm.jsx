@@ -34,8 +34,9 @@ const LoginForm = () => {
       
       // Appel pour récupérer le profil utilisateur
       const userProfile = await fetchUserProfile(response.body.token);
-      
+     
       dispatch(loginSuccess({token:response.body.token, profile: userProfile.body}));
+      
       navigate('/profile');
     } catch (error) {
       console.error('Login Error:', error.message);
